@@ -13,8 +13,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title><%=t('title')%></title>
 <meta property="og:title" content="<%=t('title')%>" />
 <meta property="og:type" content="website">
-<meta property="og:url" content="http://eliya-bot.herokuapp.com/<% if (data.listview) { %>list<% } %><% if (data.listid) { %><%= data.listid %><% } %>">
-<meta property="og:image" content="http://eliya-bot.herokuapp.com/favicon-32x32.png" />
+<meta property="og:url" content="http://veliya-bot.herokuapp.com/<% if (data.listview) { %>list<% } %><% if (data.listid) { %><%= data.listid %><% } %>">
+<meta property="og:image" content="http://veliya-bot.herokuapp.com/favicon-32x32.png" />
 <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -50,19 +50,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->	
   
 <div class="wrapper">
-  <div class="localebar">	
-	<ul id="listLang">
-		<li class="<%=(i18n.language=="en"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=en">English</a></li>
-		<li class="<%=(i18n.language=="ja"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=ja">日本語</a></li>	
-		<li class="<%=(i18n.language=="zh-TW"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=zh-tw">繁體中文</a></li>
-		<!--<li class="<%=(i18n.language=="zh-CN"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=zh-cn">简体中文</a></li>-->
-	</ul>
-	<ul id="listServer">	              
-		<li class="btnInJapan <%=(server=="jp"?"active":"")%>" data-server="jp"><span><%=t('JP')%></span></li>
-		<li class="btnInGlobal <%=(server=="gl"?"active":"")%>" data-server="gl"><span><%=t('GL')%></span></li>
-		<li class="btnInTaiwan <%=(server=="tw"?"active":"")%>" data-server="tw"><span><%=t('TW')%></span></li>
-	</ul>
-  </div>
   <div class="toolbar">
 
   <ul class="btnList">
@@ -106,7 +93,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			  </ul>
 		  <ul id="filterAltArt" class="filterList">			  
 			  <li id="btnShowRole" data-type="char"><%=t('ShowRole')%></li>			
-              <li class="btnFilter charFilter" data-filter="ManaBoard2"><%=t('ShowManaBoard2')%></li>                
 			  <li id="btnAltArt"><%=t('Awaken')%></li>
           </ul>    
 

@@ -34,7 +34,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
   }); 
 
   socket.on('url added', function (url) {
-    var shareUrl = "https://eliya-bot.herokuapp.com/" + url.id
+    var shareUrl = "https://veliya-bot.herokuapp.com/" + url.id
     if (server == 'gl') shareUrl+='?sv=gl';
     if (server == 'tw') shareUrl+='?sv=tw';
 	$("#txtShareURL").val(shareUrl);
@@ -459,7 +459,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
   $("#btnSave").on("click", function () {
 	localStorage.setItem("charList", getUnitList('char'));	 
     localStorage.setItem("equipList", getUnitList('equip'));
-	window.history.pushState("saved", "", "https://eliya-bot.herokuapp.com");
+	window.history.pushState("saved", "", "https://veliya-bot.herokuapp.com");
     $(this).removeClass("on");
     setTimeout(function () {
       $("#btnSave").addClass("on")
@@ -497,7 +497,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     })
 	var lngcode = '';
 	if (lang!="en") lngcode+='.'+lang;
-    const imageUrl = "https://eliya-bot.herokuapp.com/comp/" + units.join('-') +lngcode+ ".png";
+    const imageUrl = "https://veliya-bot.herokuapp.com/comp/" + units.join('-') +lngcode+ ".png";
     $("#txtCompURL").val(imageUrl);		  
     if (!copyToClipboard(imageUrl)){
 		$('.body').addClass("showCompURL");

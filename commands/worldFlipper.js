@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const DB = require('../data')
 var data = DB.getData();
 const moment = require('moment-timezone');
-const assetPath = 'http://eliya-bot.herokuapp.com/img/assets/';
+const assetPath = 'http://veliya-bot.herokuapp.com/img/assets/';
 const group = path.parse(__filename).name;
 const reactionExpiry = 30000;
 const normalReaction = '🙂';
@@ -601,7 +601,7 @@ const tls = {
   aliases: ['tl', 'translation'],
   description: "Link to Eliya Bot's translation webapp",
   execute(message) {
-    const tlDocLink = 'http://eliya-bot.herokuapp.com/list';
+    const tlDocLink = 'http://veliya-bot.herokuapp.com/list';
     return message.channel.send(`The translation webapp can be found here:\n${tlDocLink}`);
   },
 };
@@ -729,7 +729,7 @@ const tracker = {
   aliases: ['tr', 'track'],
   description: 'Links Collection Tracker.',
   execute(message) {
-    const tlDocLink = 'http://eliya-bot.herokuapp.com/';
+    const tlDocLink = 'http://veliya-bot.herokuapp.com/';
     return message.channel.send(`The collection tracker can be found below. Fill up both your units and weapons here for teambuiding advices: \n${tlDocLink}`);
   },
 };
@@ -950,7 +950,7 @@ const update = {
   execute(message, args) {
     data = DB.getData();
     const axios = require('axios');
-    axios.post('http://eliya-bot.herokuapp.com/update', {})
+    axios.post('http://veliya-bot.herokuapp.com/update', {})
       .then((res) => {
 
       })

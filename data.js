@@ -27,14 +27,8 @@ module.exports = {
   getData: function (lang) {
     var SPREADSHEET_ID;
     switch (lang) {
-      case 'zh-TW':
-        SPREADSHEET_ID = '1ufgoiam83634LwZwj1ECNmyMd6cAdHz8u4YX7k62-6w';
-        break;
-      case 'ja':
-        SPREADSHEET_ID = '1FfHbq_ZJpWh7QhMzltAdzoyCSDtYlXXvb7EnboPsitM';
-        break;
       default:
-        SPREADSHEET_ID = '1moWhlsmAFkmItRJPrhhi9qCYu8Y93sXGyS1ZBo2L38c';
+        SPREADSHEET_ID = '1zNa_FwDyy-vHzY-bmCbkjjDBFU_-2EKRcHlqRsN6TUg';
         break;
     }
     console.log('Getting data..')

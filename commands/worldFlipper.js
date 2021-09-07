@@ -20,7 +20,7 @@ const getInfoEmbed = (unit, flag) => {
   if (unit.Obtain) {
     footer = footer + ' - ' + unit.Obtain;
   }
-  footer += '           ' + unit.DevNicknames + '       JP' + (unit.InGlobal?' GL':'') + (unit.InTaiwan?' TW':'')
+  footer += '           ' + unit.DevNicknames + '       GL'
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+

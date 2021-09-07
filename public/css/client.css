@@ -110,7 +110,6 @@ strong {
   border: 1px solid #d20000;
 }
 #listLang {
-  display:none !important;
   vertical-align: text-top;
   display: inline-block;
   margin: 5px;
@@ -369,7 +368,6 @@ strong {
 	
 }
 .titleInfoBlock .JPName{
-  display:none !important;
 	color: rgba(255,255,255,0);
 	height: 0;
     margin: -25px 0 6px 21px;
@@ -406,7 +404,6 @@ strong {
 	float: left;
 }
 .listView .titleInfoBlock .JPName{
-  display:none !important;
    position: absolute;
     left: 0;
     top: 5px;
@@ -716,7 +713,6 @@ strong {
   margin-top: 5px;
 }
 #info .ENName,#info .ZHName, #info .JPName {
-  display:none !important;
   font-size: 14px;
   font-weight: bold;
   line-height: 30px;
@@ -896,7 +892,6 @@ strong {
   line-height: 15px;
 }
 #charNamePlate .JPName {
-  display:none !important;
   font-size: 11px;
   line-height: 15px;
 }
@@ -1012,7 +1007,6 @@ strong {
 }
 
 .unitList .JPName {
-  display:none !important;
   position: absolute;
   left: 5px;
   top: 78px;
@@ -1259,7 +1253,6 @@ strong {
 }
 .darktheme #listLang,
 .darktheme #listServer{
-  display:none !important;
     background: #333;   
 } 
 .darktheme #listLang li.active a,
@@ -1328,4 +1321,8 @@ strong {
 }
 .darktheme .showSkillWait #planner .SkillWait{
     color: #000;
+}
+.localebar,
+.JPName{
+  display:none !important;
 }

@@ -270,7 +270,7 @@ io.on('connection', function (socket) {
 
 
   socket.on('add url', function (list) {
-    const sql = "INSERT INTO short_urls (url, created_date) VALUES ($1,CURRENT_TIMESTAMP) RETURNING id";
+    const sql = "INSERT INTO short_urls (url) VALUES ($1) RETURNING id";
     const values = [list.chars];
 
     client.query(sql,values).then(res=> {
@@ -297,10 +297,6 @@ io.on('connection', function (socket) {
       const values = [id];
 
       client.query(sql,values).then(res => {
-        res.rows.forEach(function (row) {
-          delete row.created_date;
-        });
-        console.log(res);
         io.to(socket.id).emit('url', res.rows[0]);
       })
   });

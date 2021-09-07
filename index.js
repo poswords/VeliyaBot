@@ -237,9 +237,7 @@ app.post('/update', async (req, res) => {
 });
 
 var mysql = require('mysql');
-var connection = mysql.createConnection(process.env.JAWSDB_URL);
 
-connection.connect();
 client.connect();
 io.on('connection', function (socket) {
   socket.on('connected', function (lang) {
@@ -272,10 +270,12 @@ io.on('connection', function (socket) {
 
 
   socket.on('add url', function (list) {
-    client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id", function (err, res) {
-      if (err) throw err;
+    const sql = "INSERT INTO short_urls (url, created_date) VALUES ($1,CURRENT_TIMESTAMP) RETURNING id";
+    const values = [list.chars];
+
+    client.query(sql,values).then(res=> {
       var id;
-		id = res.rows[0].id;
+		  id = res.rows[0].id;
       io.to(socket.id).emit('url added', {
         id: res.rows[0].id,
         url: list
@@ -293,29 +293,16 @@ io.on('connection', function (socket) {
     })
   });
   socket.on('get url', function (id) {
-    connection.query('SELECT * FROM short_urls WHERE id=' + id, function (err, rows, fields) {
-      //if(err) throw err
-      if (err) {
-        console.log(err);
-      } else {
-        if (rows.length == 0) {
-          client.query('SELECT * FROM short_urls WHERE id=' + id, function (err, res) {
-            if (err) throw err;
-            res.rows.forEach(function (row) {
-              delete row.created_date;
-            });
-            io.to(socket.id).emit('url', res.rows[0]);
-          })
-        } else {
-          rows.forEach(function (row) {
-            delete row.created_date;
-          });
-          io.to(socket.id).emit('url', rows[0]);
-        }
+      const sql = "SELECT * FROM short_urls WHERE id=$1";
+      const values = [id];
 
-      }
-    });
-
+      client.query(sql,values).then(res => {
+        res.rows.forEach(function (row) {
+          delete row.created_date;
+        });
+        console.log(res);
+        io.to(socket.id).emit('url', res.rows[0]);
+      })
   });
 
 });

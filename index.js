@@ -268,11 +268,9 @@ io.on('connection', function (socket) {
     }
   });
 
-
   socket.on('add url', function (list) {
-    const sql = "INSERT INTO short_urls (url) VALUES ($1) RETURNING id";
-    const values = [list.chars];
-
+    const sql = "INSERT INTO short_urls (url, equips) VALUES ($1, $2) RETURNING id";
+    const values = [list.chars,list.equips];
     client.query(sql,values).then(res=> {
       var id;
 		  id = res.rows[0].id;
@@ -281,7 +279,7 @@ io.on('connection', function (socket) {
         url: list
       });
       var target = id - 9980;
-		
+
       if (target > 0) {
         client.query('Delete FROM short_urls WHERE id < ' + target, function (err, rows, fields) {
           if (err) {

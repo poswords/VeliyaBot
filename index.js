@@ -236,8 +236,6 @@ app.post('/update', async (req, res) => {
   res.send("webapp updated!");
 });
 
-var mysql = require('mysql');
-
 client.connect();
 io.on('connection', function (socket) {
   socket.on('connected', function (lang) {

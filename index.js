@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const version = '0.1';
-const listenport = process.env.PORT || 8888;
+const listenport = process.env.PORT;
 const http = require('http');
 const server = http.Server(app);
 const io = require('socket.io')(server);

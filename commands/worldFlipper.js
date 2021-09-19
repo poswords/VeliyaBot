@@ -669,7 +669,7 @@ const event = {
       msg.addFields({name: "Upcoming Events", value: "```diff\nNo upcoming event```"})
     }
 
-    return message.channel.send(msg);
+    return message.channel.send({embeds:[msg]});
   },
 };
 const gacha = {
@@ -719,7 +719,7 @@ const gacha = {
       msg.addFields({name: "Upcoming Banners", value: "```diff\nNo upcoming pick-up banner```"})
     }
 
-    return message.channel.send(msg);
+    return message.channel.send({embeds:[msg]});
   },
 };
 const tracker = {

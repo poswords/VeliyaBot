@@ -46,7 +46,7 @@ client.on('message', async (message) => {
     args.push(...input.trim().split(/ +/));
   }
 
-  if (args.length>1){
+  if (args.length>0){
     const commandName = args.shift().toLowerCase();
     const command = client.commands.get(commandName)
       || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));

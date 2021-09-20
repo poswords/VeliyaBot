@@ -160,10 +160,10 @@ app.get('/comp/:w', function (req, res) {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   var url = req.params.w.replace('.png', '');
   var lang = '';
-  if (url.indexOf('.') > 0) {
+/*  if (url.indexOf('.') > 0) {
     lang = '_' + url.split('.')[1];
     url = url.split('.')[0];
-  }
+  }*/
   const units = url.split("-");
   var count = 0;
   loadImage('./public/img/party_full' + lang + '.png').then((bg) => {

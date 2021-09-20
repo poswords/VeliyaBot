@@ -45,6 +45,10 @@ client.on('message', async (message) => {
   if (input.length > 0) {
     args.push(...input.trim().split(/ +/));
   }
+  if(!message.guild.me.permissions.has("MANAGE_MESSAGES")){
+    message.channel.send('"Manage Messages" permission is required for the bot.');
+    return
+  }
 
   if (args.length>0){
     const commandName = args.shift().toLowerCase();

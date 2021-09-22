@@ -201,7 +201,6 @@ const sendMessage = async (unit, message) => {
   await msg.react(awakenReaction);
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
-    console.log("here");
     if (r.emoji.name === normalReaction) {
       msg.edit({embeds:[getInfoEmbed(unit, 'normal')]});
     }

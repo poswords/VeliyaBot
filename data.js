@@ -36,7 +36,6 @@ module.exports = {
     var chars = [];
     var equips = [];
     var events = [];
-    var titles = [];
     sheets.spreadsheets.get({
       spreadsheetId: SPREADSHEET_ID
     }, (err, res) => {

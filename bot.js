@@ -57,6 +57,14 @@ client.on('message', async (message) => {
     message.channel.send('Missing Permissions');
     return
   }
+  if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.VIEW_CHANNEL)){
+    message.channel.send('Missing Permissions');
+    return
+  }
+  if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.SEND_MESSAGES_IN_THREADS)){
+    message.channel.send('Missing Permissions');
+    return
+  }
 
   if (args.length>0){
     const commandName = args.shift().toLowerCase();

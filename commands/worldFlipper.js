@@ -201,7 +201,7 @@ const sendMessage = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send({embeds:[getInfoEmbed(unit, 'normal')]});
+  const msg = await message.channel.send({embeds:[getInfoEmbed(unit, 'normal')]}).catch(catchErr);
   await msg.react(normalReaction).catch(catchErr);
   await msg.react(awakenReaction).catch(catchErr);
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
@@ -220,7 +220,7 @@ const sendEquip = async (unit, message) => {
   const filter = (reaction, user) => {
     return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]});
+  const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]}).catch(catchErr);
   await msg.react(weaponReaction).catch(catchErr);
   await msg.react(soulReaction).catch(catchErr);
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});

@@ -86,57 +86,56 @@ const getEquipEmbed = (unit, flag) => {
 };
 
 const getThumbnailEmbed = (unit, flag) => {
+  var devNicknames = "";
+  if (unit.DevNicknames){
+    devNicknames=unit.DevNicknames;
+  }  
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+'**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity)
-    .setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')
-    .setFooter(unit.DevNicknames);
-  if (flag == 'awaken') {
-    msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_1.png')
-  } else {
-    msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')
+    .setThumbnail(assetPath + 'chars/' + devNicknames + '/square_0.png')
+    .setFooter(devNicknames);
+  if (unit.DevNicknames){    
+    if (flag == 'awaken') {
+      msg.setThumbnail(assetPath + 'chars/' + devNicknames + '/square_1.png')
+    } else {
+      msg.setThumbnail(assetPath + 'chars/' + devNicknames + '/square_0.png')
+    }
   }
   return msg;
 };
 
 const getArtEmbed = (unit, flag) => {
+  var devNicknames = "";
+  if (unit.DevNicknames){
+    devNicknames=unit.DevNicknames;
+  }  
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setFooter(unit.DevNicknames);
-  if (flag == 'awaken') {
-    msg.setImage(assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png')
-  } else {
-    msg.setImage(assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png')
+    .setFooter(devNicknames);
+  if (unit.DevNicknames){
+    if (flag == 'awaken') {
+      msg.setImage(assetPath + 'chars/' + devNicknames + '/full_shot_1.png')
+    } else {
+      msg.setImage(assetPath + 'chars/' + devNicknames + '/full_shot_0.png')
+    }
   }
   return msg;
 
 };
 const getTitleEmbed = (unit) => {
+  var devNicknames = "";
+  if (unit.DevNicknames){
+    devNicknames=unit.DevNicknames;
+  }  
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName)
     .setDescription('**Condition: **' + unit.Condition);
-  msg.setImage(assetPath + 'titles/' + unit.DevNicknames + '.png')
+  msg.setImage(assetPath + 'titles/' + devNicknames + '.png')
   return msg;
 
-};
-
-const getAnimationEmbed = unit => {
-  var msg = new Discord.MessageEmbed()
-    .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setImage(assetPath + 'chars/' + unit.DevNicknames + '/front.gif')
-    .setFooter(unit.DevNicknames);
-  return msg;
-
-};
-
-const getSpecialEmbed = unit => {
-  var msg = new Discord.MessageEmbed()
-    .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setImage(assetPath + 'chars/' + unit.DevNicknames + '/special.gif')
-    .setFooter(unit.DevNicknames);
-  return msg;
 };
 
 const getShortENName = longName => {
@@ -1031,4 +1030,4 @@ const filterCharacter = {
 
 
 module.exports = [guide, tls, tracker, event, gacha, character, equipment,
-  race, whois, art, alt, title, update, filterCharacter];
+  race, whois, art, alt, update, filterCharacter];

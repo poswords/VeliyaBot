@@ -20,7 +20,13 @@ const catchErr = err => {
 
 const getInfoEmbed = (unit, flag) => {
   var devNicknames = "";
-  var footer = unit.Stance + ' - ' + unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
+  var unitRole = unit.Role;
+  switch (unitRole){
+    case 'Sword': unitRole = 'Warrior'; break;
+    case 'Bow': unitRole = 'Deadeye'; break;
+    case 'Fist': unitRole = 'Bruiser'; break;
+  }
+  var footer = unit.Stance + ' - ' + unitRole + ' - ' + unit.Gender + ' - ' + unit.Race;
   if (unit.DevNicknames){
     devNicknames=unit.DevNicknames;
   }

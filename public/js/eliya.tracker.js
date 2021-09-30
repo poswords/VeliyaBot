@@ -118,7 +118,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
           }
           var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
           Object.keys(unit).forEach(function (key) {
-			if (lang != "en"){
+
 				if (key == "Race"){
 					var races = unit.Race.split(' / ');
 					var tls =[];
@@ -132,9 +132,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 				}else{
 					info.find('.' + key + ' span').text(unit[key]);	
 				}
-			}else{
-				info.find('.' + key + ' span').text(unit[key]);	
-			}
+
           });
           info.find('.Art').html('<a href="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" target="_blank"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" class="mainArt"></a><a href="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" target="_blank"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" class="altArt"></a>');
           info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);

@@ -95,7 +95,6 @@ const getThumbnailEmbed = (unit, flag) => {
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+'**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity)
-    .setThumbnail(assetPath + 'chars/' + devNicknames + '/square_0.png')
     .setFooter(devNicknames);
   if (unit.DevNicknames){    
     if (flag == 'awaken') {

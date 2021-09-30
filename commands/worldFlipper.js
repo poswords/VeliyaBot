@@ -19,12 +19,16 @@ const catchErr = err => {
 }
 
 const getInfoEmbed = (unit, flag) => {
+  var devNicknames = "";
   var footer = unit.Stance + ' - ' + unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
+  if (unit.DevNicknames){
+    devNicknames=unit.DevNicknames;
+  }
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
   if (unit.Obtain) {
     footer = footer + ' - ' + unit.Obtain;
   }
-  footer += '           ' + unit.DevNicknames;
+  footer += '           ' + devNicknames;
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+
@@ -42,31 +46,41 @@ const getInfoEmbed = (unit, flag) => {
       .addField('Ability 5', unit.Ability5, true)
       .addField('Ability 6', unit.Ability6, true)
   }
-  if (flag == 'awaken') {
-    msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_1.png')
-  } else {
-    msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')
+  if (unit.DevNicknames){
+    if (flag == 'awaken') {
+      msg.setThumbnail(assetPath + 'chars/' + devNicknames + '/square_1.png')
+    } else {
+      msg.setThumbnail(assetPath + 'chars/' + devNicknames + '/square_0.png')
+    }
   }
   return msg;
 };
 
 const getEquipEmbed = (unit, flag) => {
+  var devNicknames = "";
+  if (unit.DevNicknames){
+    devNicknames=unit.DevNicknames;
+  }  
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .addField('Obtain', unit.Obtain, true)
-    .setFooter(unit.DevNicknames);
+    .setFooter(devNicknames);
   if (flag == 'soul') {
     msg.setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
-      + '\n**Ability Soul: **' + unit.AbilitySoul)
-    msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png')
+      + '\n**Ability Soul: **' + unit.AbilitySoul);
+    if (unit.DevNicknames){
+      msg.setThumbnail(assetPath + 'item/equipment/' + devNicknames + '_soul.png')
+    }
   } else {
     msg.setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
       + '\n**HP: **' + unit.MaxHP + '　　**ATK: **' + unit.MaxATK
       + '\n**Weapon Skill: **' + unit.WeaponSkill)      
-    msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png')
+    if (unit.DevNicknames){
+      msg.setThumbnail(assetPath + 'item/equipment/' + devNicknames + '.png')
+    }
   }
   return msg;
 };

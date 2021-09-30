@@ -18,7 +18,7 @@ Basically all conditions are AND combined. Some conditions have OR clause in the
 
 You can use `1234*` for not 5-star characters.
 #### Power Flip Type
-`fist` `sword` `bow` `support` `special`
+`bruiser` `warrior` `deadeye` `support` `special`
 #### Skill Wait
 `sw>600` `sw<=380` `sw==460` (Mention you need to use two equal signs)
 #### Gender

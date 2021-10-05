@@ -640,14 +640,18 @@ function getTimeUntil(diff) {
   const hours = Math.floor(diff / 1000 / 60 / 60 - (days * 24));
   const minutes = Math.floor(diff / 1000 / 60 % 60);
   var timeUntil = '';
-  if (days > 0) {
-    timeUntil += days + 'd';
-  }
-  if (hours > 0 || days > 0) {
-    timeUntil += hours + 'h';
-  }
-  if (minutes > 0 || hours > 0 || days > 0) {
-    timeUntil += minutes + 'm';
+  if (days > 100){
+    timeUntil = 'Unspecified'
+  }else{
+    if (days > 0) {
+      timeUntil += days + 'd';
+    }
+    if (hours > 0 || days > 0) {
+      timeUntil += hours + 'h';
+    }
+    if (minutes > 0 || hours > 0 || days > 0) {
+      timeUntil += minutes + 'm';
+    }
   }
   return timeUntil;
 }
@@ -663,20 +667,20 @@ const event = {
     for (i = 0; i < data.events.length; i++) {
       const event = data.events[i];
       var aLength = 40 - event.ENName.length;
-      var start = moment.tz(event.Start, "Asia/Tokyo");
-      var end = moment.tz(event.End, "Asia/Tokyo");
-      var now = moment.tz("Asia/Tokyo");
+      var start = moment.utc(event.Start);
+      var end = moment.utc(event.End);
+      var now = moment.utc();
 
       if (end.isAfter(now)) {
 
         if (aLength < 0) {
           aLength = 0
         }
-        ;
+        
         if (start.isBefore(now)) {
           timeUntil = getTimeUntil(end.format("x") - now.format("x"));
           if (event.Type != "Banner") {
-            ongoingList += event.ENName + '\n+ End : ' + event.End + ' (' + timeUntil + ")\n";
+            ongoingList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End:'') + ' (' + timeUntil + ")\n";
           }
         } else {
           timeUntil = getTimeUntil(start.format("x") - now.format("x"));
@@ -713,20 +717,21 @@ const gacha = {
     for (i = 0; i < data.events.length; i++) {
       const event = data.events[i];
       var aLength = 40 - event.ENName.length;
-      var start = moment.tz(event.Start, "Asia/Tokyo");
-      var end = moment.tz(event.End, "Asia/Tokyo");
-      var now = moment.tz("Asia/Tokyo");
+      var start = moment.utc(event.Start);
+      var end = moment.utc(event.End);
+      var now = moment.utc();
 
       if (end.isAfter(now)) {
 
         if (aLength < 0) {
           aLength = 0
         }
-        ;
+        
         if (start.isBefore(now)) {
           timeUntil = getTimeUntil(end.format("x") - now.format("x"));
+          
           if (event.Type == "Banner") {
-            ongoingBannerList += event.ENName + '\n+ End : ' + event.End + ' (' + timeUntil + ")\n";
+            ongoingBannerList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End:'') + ' (' + timeUntil + ")\n";
           }
         } else {
           timeUntil = getTimeUntil(start.format("x") - now.format("x"));

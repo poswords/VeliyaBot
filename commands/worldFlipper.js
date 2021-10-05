@@ -680,12 +680,12 @@ const event = {
         if (start.isBefore(now)) {
           timeUntil = getTimeUntil(end.format("x") - now.format("x"));
           if (event.Type != "Banner") {
-            ongoingList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End:'') + ' (' + timeUntil + ")\n";
+            ongoingList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End+' UTC ':'') + '(' + timeUntil + ")\n";
           }
         } else {
           timeUntil = getTimeUntil(start.format("x") - now.format("x"));
           if (event.Type != "Banner") {
-            upcomingList += event.ENName + '\n+ Start : ' + event.Start + ' (' + timeUntil + ")\n";
+            upcomingList += event.ENName + '\n+ Start : ' + event.Start + ' UTC (' + timeUntil + ")\n";
           }
         }
       }
@@ -731,12 +731,12 @@ const gacha = {
           timeUntil = getTimeUntil(end.format("x") - now.format("x"));
           
           if (event.Type == "Banner") {
-            ongoingBannerList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End+'UTC ':'') + '(' + timeUntil + ")\n";
+            ongoingBannerList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End+' UTC ':'') + '(' + timeUntil + ")\n";
           }
         } else {
           timeUntil = getTimeUntil(start.format("x") - now.format("x"));
           if (event.Type == "Banner") {
-            upcomingBannerList += event.ENName + '\n+ Start : ' + event.Start + 'UTC (' + timeUntil + ")\n";
+            upcomingBannerList += event.ENName + '\n+ Start : ' + event.Start + ' UTC (' + timeUntil + ")\n";
           }
         }
       }

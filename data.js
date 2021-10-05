@@ -151,6 +151,9 @@ module.exports = {
               })
               return temp;
             });
+            for (i = 0; i < rows.length; i++) {
+              console.log(rows[i]);
+            }            
             Array.prototype.push.apply(events, rows)
           }/*
           for (r = 7; r < 8; r++) {

@@ -564,10 +564,15 @@ const filterCharByText = (origin, text, options) => {
     if (options.regexp) {
       for (let f in fields) {
         const field = char[fields[f]];
-        if (new RegExp(text).test(field.toLowerCase())) {
-          return !exclude;
+        try {
+          if (new RegExp(text).test(field.toLowerCase())) {
+            return !exclude;
+          }
+        } catch (err) {
+          console.log(err.stack)
+          return null;
         }
-      }
+       }
     } else {
       for (let f in fields) {
         const field = char[fields[f]];

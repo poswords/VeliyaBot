@@ -540,7 +540,9 @@ strong {
   max-height: 12px;
   margin: 0 auto;
 }
-.filterList li.on {
+.filterList li.on,
+.filterList li.no,
+.filterList li.show{
   background: #dde;
 }
 .filterList li:first-child {
@@ -578,6 +580,17 @@ strong {
   background-color: inherit;
   filter: none;
   opacity: 1;
+}
+.btnNoGacha,.btnShowGacha,.btnNoLimited,.btnShowLimited{
+  display: none;
+}
+.btnToggle span{
+  display: none;
+}
+.btnToggle.off .off,
+.btnToggle.no .no,
+.btnToggle.show .show{
+  display: block;
 }
 .unit.filtered {
   display: none;
@@ -1286,6 +1299,8 @@ strong {
 
 .darktheme .button.on,
 .darktheme .filterList li.on,
+.darktheme .filterList li.no,
+.darktheme .filterList li.show,
 .darktheme #switchUnits li.on{
     background: #6a6aef;
 }

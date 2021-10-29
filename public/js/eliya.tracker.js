@@ -11,9 +11,9 @@ $(document).ready(function () {
   var equipLoaded = false;
   var waitingForUrl = false;
   var blank_elem = $('<li class="unit"><img src="img/assets/chars/blank/square_0.png"></li>');
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     $("body").addClass("darktheme");
-}
+  }
   function clearUI() {
 
   }
@@ -26,38 +26,38 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     resizeCheck();
   });
   resizeCheck();
-  $(".btnCopy").on("click",function(){
-	 var str = $("#"+$(this).data("target")).val();
-	 if (!window.module.exports(str)){setStatus(false);}else{
-		 $(this).addClass("on");
-	 }
-  }); 
+  $(".btnCopy").on("click", function () {
+    var str = $("#" + $(this).data("target")).val();
+    if (!window.module.exports(str)) { setStatus(false); } else {
+      $(this).addClass("on");
+    }
+  });
 
   socket.on('url added', function (url) {
     var shareUrl = "https://veliya-bot.herokuapp.com/" + url.id
-    if (server == 'gl') shareUrl+='?sv=gl';
-    if (server == 'tw') shareUrl+='?sv=tw';
-	$("#txtShareURL").val(shareUrl);
-    if (!copyToClipboard(shareUrl)){
-		$('.body').addClass("showShareURL");	
-	}else{
-		$("#btnGetShareURL").text(tls.ShareURLCopied).addClass("on");
-	}
+    if (server == 'gl') shareUrl += '?sv=gl';
+    if (server == 'tw') shareUrl += '?sv=tw';
+    $("#txtShareURL").val(shareUrl);
+    if (!copyToClipboard(shareUrl)) {
+      $('.body').addClass("showShareURL");
+    } else {
+      $("#btnGetShareURL").text(tls.ShareURLCopied).addClass("on");
+    }
   });
 
   socket.on('url', function (url) {
     if (waitingForUrl) {
-	  if (url){
-		  if (url.url) {
-			setUnitList(url.url, 'char');
-		  }
-		  if (url.equips) {
-			setUnitList(url.equips, 'equip');
-		  }
-	  }else{
-		  $("#errMsg").removeClass('hidden');
-		  $("#errMsg").html(tls.URLExpired);
-	  }
+      if (url) {
+        if (url.url) {
+          setUnitList(url.url, 'char');
+        }
+        if (url.equips) {
+          setUnitList(url.equips, 'equip');
+        }
+      } else {
+        $("#errMsg").removeClass('hidden');
+        $("#errMsg").html(tls.URLExpired);
+      }
       waitingForUrl = false;
     }
   });
@@ -75,23 +75,32 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         }
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
         elem.data("DevNicknames", unit.DevNicknames);
-		var skillWait;
-		if(unit.SkillWait){
-			skillWait = unit.SkillWait
-		}else{
-			skillWait = 0;
-		}
-        if(unit.Ability4){
-            elem.addClass("ManaBoard2")
+        var skillWait;
+        if (unit.SkillWait) {
+          skillWait = unit.SkillWait
+        } else {
+          skillWait = 0;
         }
-        if (unit.InGlobal == 'Y'){
+        if (unit.Ability4) {
+          elem.addClass("ManaBoard2")
+        }
+        if (unit.InGlobal == 'Y') {
           elem.addClass("InGlobal")
         }
-        if (unit.InTaiwan == 'Y'){
+        if (unit.InTaiwan == 'Y') {
           elem.addClass("InTaiwan")
         }
+        if (unit.Obtain) {
+          if (unit.Obtain.includes(getTls("Limited"))) {
+            elem.addClass("Limited")
+          } else {
+            elem.addClass("NoLimited")
+          }
+        } else {
+          elem.addClass("NoLimited")
+        }
         elem.data("SkillWait", skillWait);
-		unit.SkillWait=skillWait;
+        unit.SkillWait = skillWait;
         var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
         Object.keys(unit).forEach(function (key) {
           info.find('.' + key + ' span').text(unit[key]);
@@ -119,19 +128,19 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
           var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
           Object.keys(unit).forEach(function (key) {
 
-				if (key == "Race"){
-					var races = unit.Race.split(' / ');
-					var tls =[];
-					for (i=0;i<races.length;i++){
-						tls.push(getTls("Race"+races[i]));
-					}
-					info.find('.' + key + ' span').text(tls.join(' / '));	
-				}else if(key=="Stance" || key=="Attribute" || key =="Role" || key=="Gender"){
-					var tl = getTls(key+unit[key]);
-					if (tl) info.find('.' + key + ' span').text(tl);
-				}else{
-					info.find('.' + key + ' span').text(unit[key]);	
-				}
+            if (key == "Race") {
+              var races = unit.Race.split(' / ');
+              var tls = [];
+              for (i = 0; i < races.length; i++) {
+                tls.push(getTls("Race" + races[i]));
+              }
+              info.find('.' + key + ' span').text(tls.join(' / '));
+            } else if (key == "Stance" || key == "Attribute" || key == "Role" || key == "Gender") {
+              var tl = getTls(key + unit[key]);
+              if (tl) info.find('.' + key + ' span').text(tl);
+            } else {
+              info.find('.' + key + ' span').text(unit[key]);
+            }
 
           });
           info.find('.Art').html('<a href="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" target="_blank"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" class="mainArt"></a><a href="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" target="_blank"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" class="altArt"></a>');
@@ -144,9 +153,9 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
           $("#charNamePlate").show();
           $("#charNamePlate").find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, ''))
           $("#charNamePlate").find('.JPName').html(unit.JPName);
-		  if(unit.ZHName){
-			$("#charNamePlate").find('.ZHName').html(unit.ZHName);  
-		  }
+          if (unit.ZHName) {
+            $("#charNamePlate").find('.ZHName').html(unit.ZHName);
+          }
           $("#charNamePlate").find('.Obtain').html('').addClass('hidden');
           $("#charNamePlate").css({
             "left": elem.offset().left + elem.outerWidth() / 2,
@@ -189,21 +198,30 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
           .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png" class="soulArt">'));
         if (unit.Obtain != tls.WeaponGacha) {
           elem.addClass('NoGacha')
-        }else{
+        } else {
           elem.addClass('Gacha')
         }
-        if (unit.InGlobal == 'Y'){
+        if (unit.InGlobal == 'Y') {
           elem.addClass("InGlobal")
         }
-        if (unit.InTaiwan == 'Y'){
+        if (unit.InTaiwan == 'Y') {
           elem.addClass("InTaiwan")
+        }
+        if (unit.AwakenLv3) {
+          elem.addClass("HasAwakenLv3")
+        }
+        if (unit.AwakenLv5) {
+          elem.addClass("HasAwakenLv5")
+        }
+        if (unit.Obtain) {
+          if (unit.Obtain.includes(getTls("Limited"))) {
+            elem.addClass("Limited")
+          } else {
+            elem.addClass("NoLimited")
+          }
+        } else {
+          elem.addClass("NoLimited")
         }        
-        if(unit.AwakenLv3){
-            elem.addClass("HasAwakenLv3")
-        }
-        if(unit.AwakenLv5){
-            elem.addClass("HasAwakenLv5")
-        }
         elem.appendTo($("#equipRarity" + unit.Rarity + " .equipList"));
         elem.data("DevNicknames", unit.DevNicknames);
         var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");
@@ -211,8 +229,8 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
           info.find('.' + key + ' span').text(unit[key]);
         });
         var attr = '';
-        if (unit.Attribute == 'All'){attr = getTls('AttributeAll');}
-        info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span>' +attr + '</span>');
+        if (unit.Attribute == 'All') { attr = getTls('AttributeAll'); }
+        info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span>' + attr + '</span>');
         info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity).html('<span></span>');
         elem.append(info);
         elem.on("click", function () {
@@ -232,16 +250,16 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
           }
           var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");
           Object.keys(unit).forEach(function (key) {
-			if (lang != "en"){
-				if(key=="Attribute"){
-					var tl = getTls(key+unit[key]);
-					if (tl) info.find('.' + key + ' span').text(tl);
-				}else{
-					info.find('.' + key + ' span').text(unit[key]);	
-				}
-			}else{
-				info.find('.' + key + ' span').text(unit[key]);	
-			}
+            if (lang != "en") {
+              if (key == "Attribute") {
+                var tl = getTls(key + unit[key]);
+                if (tl) info.find('.' + key + ' span').text(tl);
+              } else {
+                info.find('.' + key + ' span').text(unit[key]);
+              }
+            } else {
+              info.find('.' + key + ' span').text(unit[key]);
+            }
           });
           info.find('.Art').html('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png"><img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png" class="soulArt">');
           info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);
@@ -252,9 +270,9 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         elem.on("mouseover", function (e) {
           $("#charNamePlate").show();
           $("#charNamePlate").find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, ''))
-		  if(lang=="zh-TW"){
-			$("#charNamePlate").find('.ZHName').html(unit.ZHName);  
-		  }
+          if (lang == "zh-TW") {
+            $("#charNamePlate").find('.ZHName').html(unit.ZHName);
+          }
           $("#charNamePlate").find('.JPName').html(unit.JPName);
           $("#charNamePlate").find('.Obtain').html(unit.Obtain).removeClass('hidden');
           $("#charNamePlate").css({
@@ -280,7 +298,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         waitingForUrl = true;
         socket.emit('get url', id);
       } else {
-		var unitList = localStorage.getItem("equipList");
+        var unitList = localStorage.getItem("equipList");
         if (unitList) {
           setUnitList(unitList, 'equip');
         }
@@ -297,13 +315,13 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     el.select();
     var success = document.execCommand('copy');
     document.body.removeChild(el);
-	return success;
+    return success;
   }
-  function getTls(skey){
-	for (const [key, value] of Object.entries(tls)) {
-	  if(skey == key) return value;
-	}
-  }	
+  function getTls(skey) {
+    for (const [key, value] of Object.entries(tls)) {
+      if (skey == key) return value;
+    }
+  }
 
   for (i = 1; i < 4; i++) {
     const skillwait = '<div class="SkillWait">0</div>';
@@ -311,7 +329,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
       .append(blank_elem.clone().addClass('equip weapon'))
       .append(blank_elem.clone().append(skillwait).addClass('char sub'))
       .append(blank_elem.clone().addClass('equip soul'))
-      .append($('<li class="totalSkillWait">'+tls.Wait+': <span>0</span></li>'));
+      .append($('<li class="totalSkillWait">' + tls.Wait + ': <span>0</span></li>'));
   }
 
   $(".btnSwitchUnit").on("click", function () {
@@ -329,25 +347,66 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
   $("#errMsg").on("click", function () {
     $(this).addClass('hidden');
   });
-	
+
   $("#btnShowRole").on("click", function () {
     $(this).toggleClass('on');
     $('body').toggleClass('showRole');
   });
   $("#chars .btnFilter").on("click", function () {
-    $(this).toggleClass('on');
+    if ($(this).is(".btnLimitedToggle")) {
+      if ($(this).is(".off")) {
+        $(this).removeClass("off").addClass("show");
+        $("#chars .btnNoLimited").removeClass("on");
+        $("#chars .btnShowLimited").addClass("on");
+      } else if ($(this).is(".show")) {
+        $(this).removeClass("show").addClass("no");
+        $("#chars .btnNoLimited").addClass("on");
+        $("#chars .btnShowLimited").removeClass("on");
+      } else if ($(this).is(".no")) {
+        $(this).removeClass("no").addClass("off");
+        $("#chars .btnNoLimited").removeClass("on");
+        $("#chars .btnShowLimited").removeClass("on");
+      }
+    } else {
+      $(this).toggleClass('on');
+    }
+
+
     updateCharFilter();
   });
   $("#equips .btnFilter").on("click", function () {
-    $(this).toggleClass('on');
-    if ($(this).is(".on")){
-        if ($(this).is(".btnShowGacha")){
-            $(".btnNoGacha").removeClass("on");
-        }else if ($(this).is(".btnNoGacha")){
-            $(".btnShowGacha").removeClass("on");
-        }
-        
+    if ($(this).is(".btnGachaToggle")) {
+      if ($(this).is(".off")) {
+        $(this).removeClass("off").addClass("show");
+        $("#equips .btnNoGacha").removeClass("on");
+        $("#equips .btnShowGacha").addClass("on");
+      } else if ($(this).is(".show")) {
+        $(this).removeClass("show").addClass("no");
+        $("#equips .btnNoGacha").addClass("on");
+        $("#equips .btnShowGacha").removeClass("on");
+      } else if ($(this).is(".no")) {
+        $(this).removeClass("no").addClass("off");
+        $("#equips .btnNoGacha").removeClass("on");
+        $("#equips .btnShowGacha").removeClass("on");
+      }
+    } else if ($(this).is(".btnLimitedToggle")) {
+      if ($(this).is(".off")) {
+        $(this).removeClass("off").addClass("show");
+        $("#equips .btnNoLimited").removeClass("on");
+        $("#equips .btnShowLimited").addClass("on");
+      } else if ($(this).is(".show")) {
+        $(this).removeClass("show").addClass("no");
+        $("#equips .btnNoLimited").addClass("on");
+        $("#equips .btnShowLimited").removeClass("on");
+      } else if ($(this).is(".no")) {
+        $(this).removeClass("no").addClass("off");
+        $("#equips .btnNoLimited").removeClass("on");
+        $("#equips .btnShowLimited").removeClass("on");
+      }
+    } else {
+      $(this).toggleClass('on');
     }
+
     updateEquipFilter();
   });
   $("#planner .char").on("click", function () {
@@ -384,7 +443,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
       $("#btnShowEquip").trigger("click");
     }
     if ($("#equips .equip.selected").length > 0) {
-       setEquipSlot($(this), $("#equips .equip.selected").data("DevNicknames"));
+      setEquipSlot($(this), $("#equips .equip.selected").data("DevNicknames"));
     } else if ($(this).is('.selected')) {
       $(this).removeClass("selected");
     } else if ($("#planner .equip.selected").length > 0) {
@@ -411,10 +470,10 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     e.stopPropagation();
     $("#btnUnset").appendTo($("#planner"));
     var target = $('.selected');
-    if (target.is('.main')||target.is('.sub')) {
+    if (target.is('.main') || target.is('.sub')) {
       setCharSlot(target, "blank");
     }
-    if (target.is('.weapon')||target.is('.soul')) {
+    if (target.is('.weapon') || target.is('.soul')) {
       setEquipSlot(target, "blank");
     }
     $(".selected").removeClass("selected");
@@ -455,9 +514,9 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
   });
 
   $("#btnSave").on("click", function () {
-	localStorage.setItem("charList", getUnitList('char'));	 
+    localStorage.setItem("charList", getUnitList('char'));
     localStorage.setItem("equipList", getUnitList('equip'));
-	window.history.pushState("saved", "", "https://veliya-bot.herokuapp.com");
+    window.history.pushState("saved", "", "https://veliya-bot.herokuapp.com");
     $(this).removeClass("on");
     setTimeout(function () {
       $("#btnSave").addClass("on")
@@ -469,7 +528,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     } else {
       $(this).siblings('.unitList').find('.unit').not('.spookyStuff').not('.filtered').removeClass('checked');
     }
-	unitChanged();
+    unitChanged();
   });
 
 
@@ -493,17 +552,17 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
       if (!DevNicknames) DevNicknames = "blank";
       units.push(DevNicknames);
     })
-	var lngcode = '';
-	if (lang!="en") lngcode+='.'+lang;
-    const imageUrl = "https://veliya-bot.herokuapp.com/comp/" + units.join('-') +lngcode+ ".png";
-    $("#txtCompURL").val(imageUrl);		  
-    if (!copyToClipboard(imageUrl)){
-		$('.body').addClass("showCompURL");
-	}else{
-		setTimeout(function () {
-		  $("#btnGetCompURL").text(tls.ImageURLCopied).addClass("on");
-		}, 100);
-	}
+    var lngcode = '';
+    if (lang != "en") lngcode += '.' + lang;
+    const imageUrl = "https://veliya-bot.herokuapp.com/comp/" + units.join('-') + lngcode + ".png";
+    $("#txtCompURL").val(imageUrl);
+    if (!copyToClipboard(imageUrl)) {
+      $('.body').addClass("showCompURL");
+    } else {
+      setTimeout(function () {
+        $("#btnGetCompURL").text(tls.ImageURLCopied).addClass("on");
+      }, 100);
+    }
   });
   $("#btnShowSkillWait").on("click", function () {
     $(this).toggleClass('on');
@@ -528,9 +587,9 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     setTimeout(function () {
       $("." + type + "List").removeClass('flash');
     }, 100);
-    if ($(this).is(".on")){
-        $(".btnShowNotOwned").removeClass("on");
-        $("#" + type + "s").removeClass("viewNotOwned");
+    if ($(this).is(".on")) {
+      $(".btnShowNotOwned").removeClass("on");
+      $("#" + type + "s").removeClass("viewNotOwned");
     }
   });
   $(".btnShowNotOwned").on("click", function () {
@@ -541,29 +600,29 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     setTimeout(function () {
       $("." + type + "List").removeClass('flash');
     }, 100);
-    if ($(this).is(".on")){
-        $(".btnShowOwned").removeClass("on");
-        $("#" + type + "s").removeClass("viewOwned");
-    }      
-  });  
-    
-  $("#listLang").on("click",function(){
-	  $(this).toggleClass("on");
-	  $(this).find('.active').prependTo($(this));
+    if ($(this).is(".on")) {
+      $(".btnShowOwned").removeClass("on");
+      $("#" + type + "s").removeClass("viewOwned");
+    }
   });
 
-  $("#listServer").on("click",function(){
+  $("#listLang").on("click", function () {
+    $(this).toggleClass("on");
+    $(this).find('.active').prependTo($(this));
+  });
+
+  $("#listServer").on("click", function () {
     $(this).toggleClass("on");
   });
-  $("#listServer li").on("click",function(){
-    if ($("#listServer").is('.on')){    
+  $("#listServer li").on("click", function () {
+    if ($("#listServer").is('.on')) {
       $("#listServer li").removeClass('active');
       $(this).addClass('active');
       server = $(this).data('server');
       updateCharFilter();
       updateEquipFilter();
     }
-  });  
+  });
 
   function getSkillWait(DevNickname) {
     if (DevNickname == "blank") {
@@ -610,7 +669,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     $(".selected").removeClass("selected");
     setSkillWait();
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
-	$('body').removeClass("showCompURL"); 
+    $('body').removeClass("showCompURL");
   }
 
   function setEquipSlot(slot, DevNickname) {
@@ -627,7 +686,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     var isweapon = true;
     if (slot.is('.soul')) {
       isweapon = false;
-    }	  
+    }
     slot.removeClass().addClass(unit.attr("class"));
     if (isweapon) {
       slot.addClass('unit weapon equip');
@@ -635,19 +694,19 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     } else {
       slot.addClass('unit soul equip');
       slot.removeClass('weapon filtered');
-    }	  
+    }
     $(".selected").removeClass("selected");
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
-	$('body').removeClass("showCompURL");   
+    $('body').removeClass("showCompURL");
   }
-  function unitChanged(){
-	$("#btnSave").removeClass("on");
-	$("#btnGetShareURL").text(tls.GenerateShareURL).removeClass("on");
-	$("#btnUrlCopy").removeClass("on");
-	$('body').removeClass("showShareURL"); 
+  function unitChanged() {
+    $("#btnSave").removeClass("on");
+    $("#btnGetShareURL").text(tls.GenerateShareURL).removeClass("on");
+    $("#btnUrlCopy").removeClass("on");
+    $('body').removeClass("showShareURL");
     updateCharScore();
     updateEquipScore();
-  }	
+  }
 
   function setUnitList(unitList, type) {
     var units = unitList.split(",")
@@ -714,16 +773,16 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     }
   }
 
-  function filterServer(){
-    if (server=='gl'){
+  function filterServer() {
+    if (server == 'gl') {
       $(".unitList .unit").not('.InGlobal,.spookyStuff').addClass('filtered');
     }
-    if (server=='tw'){
+    if (server == 'tw') {
       $(".unitList .unit").not('.InTaiwan,.spookyStuff').addClass('filtered');
     }
   }
 
-  
+
 
   function updateCharFilter() {
     if ($('.btnFilter.on').length <= 0) {
@@ -741,12 +800,12 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
       }
 
       $("#chars .char").not('.filtered').addClass('tempFilter');
-      
+
       filterUnit('CharRarity');
       filterUnit('CharRole');
       filterUnit('CharRace');
       filterUnit('AltArt');
-      $('.tempFilter').removeClass('tempFilter');      
+      $('.tempFilter').removeClass('tempFilter');
 
       $(".charList").each(function () {
         if ($(this).find('.char').not('.filtered').length == 0) {
@@ -760,7 +819,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     setTimeout(function () {
       $(".charList").removeClass('flash');
     }, 100);
-    filterServer();    
+    filterServer();
     updateCharScore();
   }
 
@@ -803,14 +862,20 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
       $('.tempFilter').removeClass('tempFilter');
 
       if ($('#filterEquipObtain .btnFilter.on').length > 0) {
-          if ($('.btnNoGacha').is('.on')){
-            $("#equips .equip").not('.NoGacha').addClass('filtered');
-          }
-          if ($('.btnShowGacha').is('.on')){
-             $("#equips .equip").not('.Gacha').addClass('filtered');
-           }
+        if ($('#equips .btnNoGacha').is('.on')) {
+          $("#equips .equip").not('.NoGacha').addClass('filtered');
+        }
+        if ($('#equips .btnShowGacha').is('.on')) {
+          $("#equips .equip").not('.Gacha').addClass('filtered');
+        }
+        if ($('#equips .btnNoLimited').is('.on')) {
+          $("#equips .equip").not('.NoLimited').addClass('filtered');
+        }
+        if ($('#equips .btnShowLimited').is('.on')) {
+          $("#equips .equip").not('.Limited').addClass('filtered');
+        }
       }
-        
+
       $(".equipList").each(function () {
         if ($(this).find('.equip').not('.filtered').length == 0) {
           $(this).parent().addClass('hidden')
@@ -825,7 +890,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     setTimeout(function () {
       $(".equipList").removeClass('flash');
     }, 100);
-    filterServer(); 
+    filterServer();
     updateEquipScore();
   }
 

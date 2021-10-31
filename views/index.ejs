@@ -190,9 +190,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li class="btnShowNotOwned" data-type="equip"><%=t('ShowNotOwned')%></li>
 			  </ul>	          
 		  <ul id="filterEquipObtain" class="filterList">
-			  <li class="btnFilter btnNoGacha" data-filter="NoGacha"><%=t('NoGacha')%></li>
-              <li class="btnFilter btnShowGacha" data-filter="Gacha"><%=t('ShowGacha')%></li>              
-			  <li id="btnViewSoul"><%=t('AbilitySoul')%></li>				  
+			<li class="btnFilter btnGachaToggle btnToggle off"><span class="off">
+				<%=t('Gacha')%>?
+			</span><span class="no">
+				<%=t('NoGacha')%>
+			</span><span class="show">
+				<%=t('ShowGacha')%>
+			</span></li>
+			<li class="btnFilter btnNoGacha" data-filter="NoGacha">
+				<%=t('NoGacha')%>
+			</li>
+			<li class="btnFilter btnShowGacha" data-filter="Gacha">
+				<%=t('ShowGacha')%>
+			</li>
+			<li class="btnFilter btnLimitedToggle btnToggle off"><span class="off">
+				<%=t('Limited')%>?
+			</span><span class="no">
+				<%=t('NoLimited')%>
+			</span><span class="show">
+				<%=t('ShowLimited')%>
+			</span></li>
+			<li class="btnFilter btnNoLimited" data-filter="NoLimited" data-type="char">
+				<%=t('NoLimited')%>
+			</li>
+			<li class="btnFilter btnShowLimited" data-filter="Limited" data-type="char">
+				<%=t('ShowLimited')%>
+			</li>
+			<li id="btnViewSoul">
+				<%=t('AbilitySoul')%>
+			</li>		  
           </ul>
 	
           
@@ -335,7 +361,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>	
   <script src="/js/copy.js"></script>
-  <script src="/js/eliya.tracker.js?2110291200"></script>
+  <script src="/js/eliya.tracker.js?2110311200"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=AeaJ3pFrnWM7aveHFyKX_H2vGuqwkY5UezcRhPFMVhDiIIsQZfzvg6Ymw2KUYPPYal_LgtA3E2YWOM92&currency=JPY" data-sdk-integration-source="button-factory"></script>
 <script>
   paypal.Buttons({

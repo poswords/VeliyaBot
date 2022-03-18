@@ -798,12 +798,12 @@ const event = {
         if (start.isBefore(now)) {
           timeUntil = getTimeUntil(end.format("x") - now.format("x"));
           if (event.Type != "Banner") {
-            ongoingList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End+' UTC ':'') + '(' + timeUntil + ")\n";
+            ongoingList += event.ENName + '\n + End : ' + ((event.End!=='2099-12-31')?'<t:'+end.unix()+'>':'') + ' (' + timeUntil + ")\n";
           }
         } else {
           timeUntil = getTimeUntil(start.format("x") - now.format("x"));
           if (event.Type != "Banner") {
-            upcomingList += event.ENName + '\n+ Start : ' + event.Start + ' UTC (' + timeUntil + ")\n";
+            upcomingList += event.ENName + '\n + Start : <t:' + start.unix() + '> (' + timeUntil + ")\n";
           }
         }
       }
@@ -811,14 +811,14 @@ const event = {
     var msg = new Discord.MessageEmbed();
 
     if (ongoingList.length > 0) {
-      msg.addFields({name: "Ongoing Events", value: "```diff\n" + ongoingList + "```"});
+      msg.addFields({name: "Ongoing Events", value: "\n" + ongoingList + ""});
     } else {
-      msg.addFields({name: "Ongoing Events", value: "```diff\nNo ongoing event```"})
+      msg.addFields({name: "Ongoing Events", value: "\nNo ongoing event"})
     }
     if (upcomingList.length > 0) {
-      msg.addFields({name: "Upcoming Events", value: "```diff\n" + upcomingList + "```"})
+      msg.addFields({name: "Upcoming Events", value: "\n" + upcomingList + ""})
     } else {
-      msg.addFields({name: "Upcoming Events", value: "```diff\nNo upcoming event```"})
+      msg.addFields({name: "Upcoming Events", value: "\nNo upcoming event"})
     }
 
     return message.channel.send({embeds:[msg]});
@@ -849,12 +849,12 @@ const gacha = {
           timeUntil = getTimeUntil(end.format("x") - now.format("x"));
           
           if (event.Type == "Banner") {
-            ongoingBannerList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End+' UTC ':'') + '(' + timeUntil + ")\n";
+            ongoingBannerList += event.ENName + '\n + End : ' + ((event.End!=='2099-12-31')?'<t:'+end.unix()+'>':'') + ' (' + timeUntil + ")\n";
           }
         } else {
           timeUntil = getTimeUntil(start.format("x") - now.format("x"));
           if (event.Type == "Banner") {
-            upcomingBannerList += event.ENName + '\n+ Start : ' + event.Start + ' UTC (' + timeUntil + ")\n";
+            upcomingBannerList += event.ENName + '\n + Start : <t:' + start.unix() + '> (' + timeUntil + ")\n";
           }
         }
       }
@@ -862,14 +862,14 @@ const gacha = {
     var msg = new Discord.MessageEmbed();
 
     if (ongoingBannerList.length > 0) {
-      msg.addFields({name: "Ongoing Banners", value: "```diff\n" + ongoingBannerList + "```"});
+      msg.addFields({name: "Ongoing Banners", value: "\n" + ongoingBannerList + ""});
     } else {
-      msg.addFields({name: "Ongoing Banners", value: "```diff\nNo ongoing pick-up banner```"})
+      msg.addFields({name: "Ongoing Banners", value: "\nNo ongoing pick-up banner"})
     }
     if (upcomingBannerList.length > 0) {
-      msg.addFields({name: "Upcoming Banners", value: "```diff\n" + upcomingBannerList + "```"})
+      msg.addFields({name: "Upcoming Banners", value: "\n" + upcomingBannerList + ""})
     } else {
-      msg.addFields({name: "Upcoming Banners", value: "```diff\nNo upcoming pick-up banner```"})
+      msg.addFields({name: "Upcoming Banners", value: "\nNo upcoming pick-up banner"})
     }
 
     return message.channel.send({embeds:[msg]});

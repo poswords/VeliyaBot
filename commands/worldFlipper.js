@@ -19,6 +19,14 @@ const DUNGEONS = process.env.DUNGEONS.split(",");
 const RIGHT = '➡️';
 const LEFT = '⬅️';
 
+process.on("uncaughtException", function (error) {
+  console.log(error);
+});
+
+process.on("unhandledRejection", function (error) {
+  console.log(error);
+});
+
 const catchErr = err => {
   console.log(err)
 }

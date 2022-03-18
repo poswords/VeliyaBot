@@ -1395,7 +1395,7 @@ const sendTeam = async (team, msg) => {
     const score = team.voter_score + upvote.size - downvote.size
     const newVoters = new Set([...upvote, ...downvote, ...voters])
     const queryString = `UPDATE teams set  voters= '{${Array.from(newVoters)}}', voter_score = ${score} where id = '${team.id}'`
-    msg.reactions.removeAll()
+    msg.reactions.removeAll().catch(catchErr);
     // This may potentially fail? Only result would be the votes not getting counted
     DBOperation(queryString)
   });
@@ -1445,17 +1445,17 @@ const EditTeamList = async (datum, message, current, msg) => {
   collector.on('collect', r => {
     acted = true
     if (r.emoji.name === RIGHT) {
-      msg.reactions.removeAll();
+      msg.reactions.removeAll().catch(catchErr);
       EditTeamList(datum, message, current + 5, msg)
     }
     if (r.emoji.name === LEFT) {
-      msg.reactions.removeAll();
+      msg.reactions.removeAll().catch(catchErr);
       EditTeamList(datum, message, current - 5, msg)
     }
     const num = datum.length < 5 ? datum.length : 5
     for (let i = 0; i < num; i++) {
       if (r.emoji.name === numberReactions[i]) {
-        msg.reactions.removeAll();
+        msg.reactions.removeAll().catch(catchErr);
         sendTeam(datum[i + current], msg)
       }
     }
@@ -1463,7 +1463,7 @@ const EditTeamList = async (datum, message, current, msg) => {
 
   collector.on('end', () => {
     if (!acted) {
-      msg.reactions.removeAll()
+      msg.reactions.removeAll().catch(catchErr);
     }
   });
 

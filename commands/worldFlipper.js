@@ -474,6 +474,11 @@ const searchTitle = chara => {
 
 const filterChar = (origin, cond) => {
   let lambda = null;
+
+  if (cond == 'warrior') cond = 'sword';      
+  if (cond == 'deadeye') cond = 'bow';      
+  if (cond == 'bruiser') cond = 'fist';     
+
   switch (cond) {
     // Elements, most used so make one/two alphabets shortcut
     case 'f':
@@ -520,11 +525,8 @@ const filterChar = (origin, cond) => {
       lambda = char => char['Race'].toLowerCase().indexOf(cond) >= 0;
       break;
     // PF type
-    case 'warrior': cond = 'sword';
     case 'sword':
-    case 'deadeye': cond = 'bow';      
     case 'bow':
-    case 'bruiser': cond = 'fist';     
     case 'fist':
     case 'support':
     case 'special':

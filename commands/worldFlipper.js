@@ -101,7 +101,9 @@ const getEquipEmbed = (unit, flag) => {
     msg.setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
       + '\n**HP: **' + unit.MaxHP + '　　**ATK: **' + unit.MaxATK
-      + '\n**Weapon Skill: **' + unit.WeaponSkill)
+      + '\n**Weapon Skill: **' + unit.WeaponSkill
+      + '\n**Awaken Lv3: **' + unit.AwakenLv3
+      + '\n**Awaken Lv5: **' + unit.AwakenLv5);
     if (unit.DevNicknames){
       msg.setThumbnail(assetPath + 'item/equipment/' + devNicknames + '.png')
     }
@@ -261,7 +263,7 @@ const sendEquip = async (unit, message) => {
   const filter = (reaction, user) => {
     return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  try {  
+  try {
     const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]}).catch(catchErr);
     await msg.react(weaponReaction).catch(catchErr);
     await msg.react(soulReaction).catch(catchErr);
@@ -277,7 +279,7 @@ const sendEquip = async (unit, message) => {
     collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
-  }    
+  }
 };
 
 const sendThumbnail = async (unit, message) => {
@@ -307,7 +309,7 @@ const sendArt = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  try {      
+  try {
     const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'normal')]}).catch(catchErr);
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
@@ -323,7 +325,7 @@ const sendArt = async (unit, message) => {
     collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
-  }      
+  }
 };
 
 const sendAlt = async (unit, message) => {
@@ -588,7 +590,7 @@ const filterCharByText = (origin, text, options) => {
           console.log(err.stack)
           return null;
         }
-       }
+      }
     } else {
       for (let f in fields) {
         const field = char[fields[f]];
@@ -661,7 +663,7 @@ const filterEquip = (origin, cond) => {
 const filterEquipByText = (origin, text, options) => {
   return origin.filter(function (char) {
     const exclude = !!options['exclude'];
-    const fields = [] /*options['fields'];*/
+    const fields = []; /*options['fields'];*/
     if (fields.length === 0) {
       fields.push(...['WeaponSkill', 'AwakenLv3', 'AwakenLv5','Obtain']);
     }

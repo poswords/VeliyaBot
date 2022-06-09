@@ -63,7 +63,6 @@ $(document).ready(function () {
   });
 
   socket.on('chars', function (data) {
-    console.log(data);
     if (!charLoaded) {
       $('#chars .charList').html("");
       data.forEach(function (unit) {

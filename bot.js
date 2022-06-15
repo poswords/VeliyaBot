@@ -8,6 +8,9 @@ const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Disc
 const prefix = process.env.PREFIX || '!!';
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const catchErr = err => {
+  console.log(err)
+}
 
 for (const file of commandFiles) {
   const commands = require(`./commands/${file}`);
@@ -19,6 +22,12 @@ for (const file of commandFiles) {
 }
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    console.log(client.guilds.cache.map(guild => guild.name + " " + guild.id).join("\n"));
+    /*
+    const guild = client.guilds.cache.find(guild => guild.name == "DaddyF2P's Kindergarten");
+    guild.leave()
+      .then(g => console.log(`left ${g}`))
+      .catch(console.error);*/
 });
 
 client.on('messageCreate', async (message) => {
@@ -35,7 +44,7 @@ client.on('messageCreate', async (message) => {
     }
     const closing = input.indexOf('"', quote + 1);
     if (closing < 0) {
-      await message.channel.send("Quotes are not closed!");
+      await message.channel.send("Quotes are not closed!").catch(catchErr);
       return;
     }
     args.push(input.slice(quote + 1, closing));
@@ -46,22 +55,23 @@ client.on('messageCreate', async (message) => {
     args.push(...input.trim().split(/ +/));
   }
   if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)){
-    message.channel.send('Missing Permissions');
+    message.channel.send('Missing Permissions').catch(catchErr);
     return
   }
   if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.SEND_MESSAGES)){
-    message.channel.send('Missing Permissions');
+    message.channel.send('Missing Permissions').catch(catchErr);
     return
   }  
   if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.ADD_REACTIONS)){
-    message.channel.send('Missing Permissions');
+    message.channel.send('Missing Permissions').catch(catchErr);
     return
   }
   if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.VIEW_CHANNEL)){
-    message.channel.send('Missing Permissions');
+    message.channel.send('Missing Permissions').catch(catchErr);
     return
   }
 
+  
   if (args.length>0){
     const commandName = args.shift().toLowerCase();
     const command = client.commands.get(commandName)

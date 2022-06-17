@@ -22,8 +22,8 @@ for (const file of commandFiles) {
 }
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    console.log(client.guilds.cache.map(guild => guild.name + " " + guild.id).join("\n"));
-    /*
+    /*console.log(client.guilds.cache.map(guild => guild.name + " " + guild.id).join("\n"));
+    
     const guild = client.guilds.cache.find(guild => guild.name == "DaddyF2P's Kindergarten");
     guild.leave()
       .then(g => console.log(`left ${g}`))

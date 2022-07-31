@@ -243,6 +243,16 @@ async function updateDB() {
       AwakenLv5:calcGauge(i.AwakenLv5),
       AbilitySoul:calcGauge(i.AbilitySoul)
     }    
+    if (i.DevNicknames == 'staff_0009'){
+      i.Gauges.AwakenLv5 = {
+        Target: 'own',
+        Condition: '',
+        Every: 0,
+        EveryCond: '',
+        IsMain: false,
+        Amount: '50'
+      }
+    }         
     i.MaxGauges = {
       WeaponSkill:calcMaxGauge(i.WeaponSkill),
       AwakenLv3:calcMaxGauge(i.AwakenLv3),

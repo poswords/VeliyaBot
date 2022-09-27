@@ -59,9 +59,23 @@ const getInfoEmbed = (unit, flag) => {
       '**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
       + '\n**Leader Buff: **' + unit.LeaderBuff
-      + '\n**Skill: **' + unit.Skill
-      + '\n**Skill Cost: **' + unit.SkillWait)
-    .addField('Ability 1', unit.Ability1, true)
+      + '\n**Skill: **' + unit.Skill)
+    if (unit.SkillWait){
+      msg.addField('Skill Cost',unit.SkillWait,true);
+    }else{
+      msg.addField('Skill Cost',"?",true);
+    }
+    if (unit.FeverGain){
+      msg.addField('Fever Gain',unit.FeverGain,true);
+    }else{
+      msg.addField('Fever Gain',"?",true);
+    }
+    if (unit.HitCount){
+      msg.addField('Hits',unit.HitCount,true);
+    }else{
+      msg.addField('Hits',"?",true);
+    }   
+    msg.addField('Ability 1', unit.Ability1, true)
     .addField('Ability 2', unit.Ability2, true)
     .addField('Ability 3', unit.Ability3, true)
     .setFooter(footer);

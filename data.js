@@ -1,12 +1,15 @@
 const {
   google
 } = require('googleapis');
-
+const fs = require('fs');
 const APIKey = process.env.GOOGLE_API_KEY;
 const sheets = google.sheets({
   version: "v4",
   auth: APIKey
 });
+let chardata = JSON.parse(fs.readFileSync('data/chars.json'));
+let equipdata = JSON.parse(fs.readFileSync('data/equips.json'));
+
 var range_names = [
   "'5* Characters'!A1:Z300",
   "'4* Characters'!A1:Z300",
@@ -22,7 +25,15 @@ var range_rarity = [
   3,
   2,
 ]
-
+const mergeData = (target, source) => {
+  source.forEach(sourceElement => {
+    let targetElement = target.find(targetElement => {
+      return sourceElement['DevNicknames'] === targetElement['DevNicknames'];
+    })
+    
+    if (targetElement) Object.assign(targetElement, sourceElement);
+  })
+}
 module.exports = {
   getData: function (lang) {
     var SPREADSHEET_ID;
@@ -97,7 +108,8 @@ module.exports = {
                 }
               }
             }
-            Array.prototype.push.apply(chars, rows)
+            Array.prototype.push.apply(chars, rows);
+            mergeData(chars, chardata , 'DevNicknames');
           }
           var equipTypes = ["main_story_orb", "practice_trophy", "sword", "axe", "spear", "bow", "book", "staff", "fist", "shield", "acce", "gun", "unknown"];
           for (r = 4; r < 6; r++) {
@@ -148,15 +160,16 @@ module.exports = {
               }                          
             }
             
-            Array.prototype.push.apply(equips, rows)
+            Array.prototype.push.apply(equips, rows);
+            equips.sort(function(a, b){  
+              return ('' + a.DevNicknames).localeCompare(b.DevNicknames);
+            });          
+            equips.sort(function(a, b){  
+              return equipTypes.indexOf(a.EquipType) - equipTypes.indexOf(b.EquipType);
+            });                       
+            mergeData(equips, equipdata , 'DevNicknames');
           }
-
-          equips.sort(function(a, b){  
-            return ('' + a.DevNicknames).localeCompare(b.DevNicknames);
-          });          
-          equips.sort(function(a, b){  
-            return equipTypes.indexOf(a.EquipType) - equipTypes.indexOf(b.EquipType);
-          });            
+        
           for (r = 6; r < 7; r++) {
             var range = res.data.valueRanges[r];
             var columnNames = range.values[0];

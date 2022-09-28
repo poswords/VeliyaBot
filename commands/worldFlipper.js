@@ -58,6 +58,7 @@ const getInfoEmbed = (unit, flag) => {
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+
       '**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
+      + '\n**HP: **' + unit.MaxHP + '　　**ATK: **' + unit.MaxATK      
       + '\n**Leader Buff: **' + unit.LeaderBuff
       + '\n**Skill: **' + unit.Skill)
     if (unit.SkillWait){

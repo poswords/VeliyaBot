@@ -52,7 +52,6 @@ for (const [charid, character] of Object.entries(characters)) {
   for (const [equipid, equipment] of Object.entries(equipments)) {
     var equip = {
         DevNicknames: equipment[0],
-        JPName: equipment[1],
         Rarity: equipment[10],
         Attribute: elements[souls[equipid][11]],
         MaxHP: equipmentStats[equipid]['5']?equipmentStats[equipid]['5'][0]:equipmentStats[equipid]['1'][0],

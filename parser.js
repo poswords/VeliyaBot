@@ -26,13 +26,13 @@ for (const [charid, character] of Object.entries(characters)) {
     let skillData = characterSkills[character[0]][2];
     var char = {
         DevNicknames: character[0],
-        SubName: character[18],
-        JPName: characterTexts[charid][0],
+        SubName: characterTexts[charid][3],
+        JPName: characterTexts[charid][1],
         Rarity: parseInt(rarity),
         Attribute: elements[character[3]],
         Role: roles[character[6]],
         Race: character[4].replace(","," / ").replace("Mystery","Youkai").replace("Element","Sprite").replace("Element","Sprite").replace("Machine","Mecha").replace("Plants","Plant"),
-        Stance: character[26],
+        Stance: character[18],
         Gender: character[7],
         MaxHP: Math.ceil(characterStats[charid][100][0]*(1+maxLvBonus[rarity])) + parseInt(awakenStats[rarity][1]),
         MaxATK: Math.ceil(characterStats[charid][100][1]*(1+maxLvBonus[rarity])) + parseInt(awakenStats[rarity][0]),

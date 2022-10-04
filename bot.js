@@ -39,11 +39,11 @@ function shuffle(array) {
 }
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    
-    var guilds = client.guilds.cache.map(guild => guild.id);
     /*
+    var guilds = client.guilds.cache.map(guild => guild.id);
+    
     shuffle(guilds);
-    for (i =1; i<=250; i++){
+    for (i =1; i<=30; i++){
       const guild =client.guilds.cache.find(guild => guild.id = guilds[i]);
       if (guilds[i]!='646623094269673492'){
         guild.leave()
@@ -51,8 +51,8 @@ client.on('ready', () => {
         .catch(console.error);
       }
 
-    }*/
-    
+    }
+    */
     /*
     const guild = client.guilds.cache.find(guild => guild.name == "DaddyF2P's Kindergarten");
     guild.leave()

@@ -939,7 +939,7 @@ const tracker = {
   description: 'Links Collection Tracker.',
   execute(message) {
     const tlDocLink = 'http://veliya-bot.herokuapp.com/';
-    return message.reply(`The collection tracker can be found below. Fill in both your units and weapons here for teambuilding advice: \n${tlDocLink}`).catch(catchErr);
+    return message.reply(`The collection tracker can be found below. Fill in both your units and weapons here, save and generate share link for teambuilding advice: \n${tlDocLink}`).catch(catchErr);
   },
 };
 const character = {

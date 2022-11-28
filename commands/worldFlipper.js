@@ -76,14 +76,14 @@ const getInfoEmbed = (unit, flag) => {
     }else{
       msg.addField('Hits',"?",true);
     }   
-    msg.addField('Ability 1', unit.Ability1, true)
-    .addField('Ability 2', unit.Ability2, true)
-    .addField('Ability 3', unit.Ability3, true)
+    msg.addField('Ability 1', unit.Ability1?unit.Ability1:"-", true)
+    .addField('Ability 2', unit.Ability2?unit.Ability2:"-", true)
+    .addField('Ability 3', unit.Ability3?unit.Ability3:"-", true)
     .setFooter({text: footer});
   if (unit.Ability4 && unit.Ability5 && unit.Ability6) {
-    msg.addField('Ability 4', unit.Ability4, true)
-      .addField('Ability 5', unit.Ability5, true)
-      .addField('Ability 6', unit.Ability6, true)
+    msg.addField('Ability 4', unit.Ability4?unit.Ability4:"-", true)
+      .addField('Ability 5', unit.Ability5?unit.Ability5:"-", true)
+      .addField('Ability 6', unit.Ability6?unit.Ability6:"-", true)
   }
   if (unit.DevNicknames){
     if (flag == 'awaken') {

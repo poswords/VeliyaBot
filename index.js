@@ -488,6 +488,7 @@ io.on('connection', function (socket) {
 
     })
   });
+  
   socket.on('get url', function (id) {
     var retry = setInterval(function(){
       if (data.chars){          

@@ -805,7 +805,7 @@ const tls = {
   aliases: ['tl', 'translation'],
   description: "Link to Eliya Bot's translation webapp",
   execute(message) {
-    const tlDocLink = 'http://veliya-bot.herokuapp.com/list';
+    const tlDocLink = 'http://eliya-bot.herokuapp.com/gl/list';
     return message.reply(`The translation webapp can be found here:\n${tlDocLink}`).catch(catchErr);
   },
 };
@@ -938,7 +938,7 @@ const tracker = {
   aliases: ['tr', 'track'],
   description: 'Links Collection Tracker.',
   execute(message) {
-    const tlDocLink = 'http://veliya-bot.herokuapp.com/';
+    const tlDocLink = 'http://eliya-bot.herokuapp.com/gl/';
     return message.reply(`The collection tracker can be found below. Fill in both your units and weapons here, save and generate share link for teambuilding advice: \n${tlDocLink}`).catch(catchErr);
   },
 };
